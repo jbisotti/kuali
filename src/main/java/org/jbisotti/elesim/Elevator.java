@@ -6,7 +6,10 @@ package org.jbisotti.elesim;
 public class Elevator {
 
     private int currentFloor;
-    private Direction direction;
+
+    public Elevator() {
+        this.currentFloor = 1;
+    }
 
     public void moveUp() {
         System.out.format("Moving from %d to %d", this.currentFloor, ++this.currentFloor);
