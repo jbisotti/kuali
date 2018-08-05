@@ -6,17 +6,20 @@ package org.jbisotti.elesim;
 public class Elevator {
 
     private static int GROUND_FLOOR = 1;
+    private static int OUT_OF_SERVICE_TRIP_COUNT = 100;
 
     private int currentFloor;
     private DoorsState doorsState;
     private int topFloor;
     private boolean occupied;
+    private int tripCount;
 
     public Elevator(final int topFloor) {
         this.currentFloor = GROUND_FLOOR;
         this.doorsState = DoorsState.OPEN;
         this.topFloor = topFloor;
         this.occupied = false;
+        this.tripCount = 0;
     }
 
     public void moveUp() {
@@ -48,11 +51,15 @@ public class Elevator {
     private boolean doorsAreOpen() {
         return this.doorsState == DoorsState.OPEN;
     }
-    public void takeTrip(final Trip trip) {
+
+    public boolean takeTrip(final Trip trip) {
+        if (isOutOfService()) {
+            return false;
+        }
+
         if (doorsAreOpen()) {
             closeDoors();
         }
-
         this.occupied = true;
 
         goToTripStartFloor(trip.getStartFloor());
@@ -64,6 +71,10 @@ public class Elevator {
 
         openDoors();
         this.occupied = false;
+
+        this.tripCount++;
+
+        return true;
     }
 
     private void goToTripStartFloor(final int startFloor) {
@@ -88,4 +99,7 @@ public class Elevator {
         return this.occupied;
     }
 
+    public boolean isOutOfService() {
+        return this.tripCount == OUT_OF_SERVICE_TRIP_COUNT;
+    }
 }
