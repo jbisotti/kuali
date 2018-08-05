@@ -6,4 +6,5 @@ package org.jbisotti.elesim;
 public enum Direction {
     UP,
     DOWN,
+    STATIONARY,
 }
