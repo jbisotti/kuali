@@ -28,4 +28,26 @@ class ElevatorSpec extends Specification {
       expectedCurrentFloor == elevator.currentFloor
   }
 
+  def "Given a valid elevator, openDoors() will set the doorState to OPEN"() {
+      given:
+      final Elevator elevator = new Elevator()
+
+      when:
+      elevator.openDoors()
+
+      then:
+      DoorsState.OPEN == elevator.doorsState
+  }
+
+    def "Given a valid elevator, closeDoors() will set the doorState to CLOSE"() {
+        given:
+        final Elevator elevator = new Elevator()
+
+        when:
+        elevator.closeDoors()
+
+        then:
+        DoorsState.CLOSED == elevator.doorsState
+    }
+
 }
