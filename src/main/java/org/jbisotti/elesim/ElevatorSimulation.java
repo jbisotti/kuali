@@ -2,21 +2,32 @@ package org.jbisotti.elesim;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
  * The driver for the Elevator Simulation.
  */
 public class ElevatorSimulation {
 
-    private final int numberOfElevators;
-    private final int numberOfFloors;
+    public static void main(final String... args) throws Exception {
 
-    public ElevatorSimulation(final int numberOfElevators, final int numberOfFloors) {
-
+        final int numberOfElevators = Integer.parseInt(args[0]);
         checkArgument(numberOfElevators > 0, "There must be at least 1 elevator");
-        this.numberOfElevators = numberOfElevators;
 
-        checkArgument(numberOfFloors > 0, "There must be at least 1 floor");
-        this.numberOfFloors = numberOfFloors;
+        final int topFloor = Integer.parseInt(args[1]);
+        checkArgument(topFloor > 0, "There must be at least 1 floor");
+
+        final Collection<Elevator> elevators = new ArrayList<>();
+        for (int i = 0; i < numberOfElevators; i++) {
+            elevators.add(new Elevator(topFloor));
+
+        }
+
+        final ElevatorsController controller = new ElevatorsController(elevators, topFloor);
+        controller.takeTrip(new Trip());
+        controller.takeTrip(new Trip());
+        controller.takeTrip(new Trip());
     }
 
 }

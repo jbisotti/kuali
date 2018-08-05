@@ -1,6 +1,7 @@
 package org.jbisotti.elesim;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import com.google.common.collect.ImmutableList;
 
@@ -22,7 +23,8 @@ public class ElevatorsController {
 
     private Elevator selectElevator(final Trip trip) {
         final Collection<Elevator> availableElevators = findAvailableElevators();
-        final Elevator closestUnoccupiedElevator = findClosestUnoccupiedElevator(availableElevators);
+
+        final Elevator closestUnoccupiedElevator = findClosest(availableElevators, trip.getStartFloor());
         if (closestUnoccupiedElevator.getCurrentFloor() == trip.getStartFloor()) {
             return closestUnoccupiedElevator;
         }
@@ -36,17 +38,32 @@ public class ElevatorsController {
     }
 
     private Collection<Elevator> findAvailableElevators() {
-        // TODO
-        return ImmutableList.of();
+        this.elevators.stream()
+                      .filter(elevator -> !elevator.isOutOfService())
+                      .filter(elevator -> !elevator.isOccupied())
+                      .collect(Collectors.toList());
     }
 
-    private Elevator findClosestUnoccupiedElevator(final Collection<Elevator> availableElevators) {
-        // TODO
-        return null;
+    private Elevator findClosest(final Collection<Elevator> availableElevators, final int tripStartFloor) {
+        int closestDistance = Integer.MAX_VALUE;
+        Elevator closesElevator = null;
+
+        for (final Elevator elevator : availableElevators) {
+            final int distance = Math.abs(elevator.getCurrentFloor() - tripStartFloor);
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                closesElevator = elevator;
+            }
+        }
+
+        return closesElevator;
     }
 
     private Elevator findOccupiedElevatorWhichWillPassTheTripStartFloor() {
         // TODO
+
+        // Find occupied elevators
+        // Find occupied elevators going in a direction that will intercept the tripStartFloor
         return null;
     }
 
