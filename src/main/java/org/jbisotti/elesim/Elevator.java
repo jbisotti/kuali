@@ -10,11 +10,13 @@ public class Elevator {
     private int currentFloor;
     private DoorsState doorsState;
     private int topFloor;
+    private boolean occupied;
 
     public Elevator(final int topFloor) {
         this.currentFloor = GROUND_FLOOR;
         this.doorsState = DoorsState.OPEN;
         this.topFloor = topFloor;
+        this.occupied = false;
     }
 
     public void moveUp() {
@@ -50,11 +52,18 @@ public class Elevator {
         if (doorsAreOpen()) {
             closeDoors();
         }
+
+        this.occupied = true;
+
         goToTripStartFloor(trip.getStartFloor());
+
         openDoors();
         closeDoors();
+
         goToTripDestinationFloor(trip.getDestinationFloor());
+
         openDoors();
+        this.occupied = false;
     }
 
     private void goToTripStartFloor(final int startFloor) {
@@ -73,6 +82,10 @@ public class Elevator {
         } else if (this.currentFloor > destinationFloor) {
             // Go down to destinationFloor
         }
+    }
+
+    public boolean isOccupied() {
+        return this.occupied;
     }
 
 }
