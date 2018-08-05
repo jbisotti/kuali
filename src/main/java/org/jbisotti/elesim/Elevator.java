@@ -43,4 +43,36 @@ public class Elevator {
         this.doorsState = DoorsState.CLOSED;
     }
 
+    private boolean doorsAreOpen() {
+        return this.doorsState == DoorsState.OPEN;
+    }
+    public void takeTrip(final Trip trip) {
+        if (doorsAreOpen()) {
+            closeDoors();
+        }
+        goToTripStartFloor(trip.getStartFloor());
+        openDoors();
+        closeDoors();
+        goToTripDestinationFloor(trip.getDestinationFloor());
+        openDoors();
+    }
+
+    private void goToTripStartFloor(final int startFloor) {
+
+        if (this.currentFloor < startFloor) {
+            // Go up to startFloor
+        } else if (this.currentFloor > startFloor) {
+            // Go down to startFloor
+        }
+    }
+
+    private void goToTripDestinationFloor(final int destinationFloor) {
+
+        if (this.currentFloor < destinationFloor) {
+            // Go up to destinationFloor
+        } else if (this.currentFloor > destinationFloor) {
+            // Go down to destinationFloor
+        }
+    }
+
 }
