@@ -5,12 +5,14 @@ package org.jbisotti.elesim;
  */
 public class Elevator {
 
+    private static int GROUND_FLOOR = 1;
+
     private int currentFloor;
     private DoorsState doorsState;
     private int topFloor;
 
     public Elevator(final int topFloor) {
-        this.currentFloor = 1;
+        this.currentFloor = GROUND_FLOOR;
         this.doorsState = DoorsState.OPEN;
         this.topFloor = topFloor;
     }
@@ -24,6 +26,10 @@ public class Elevator {
     }
 
     public void moveDown() {
+        if (this.currentFloor == GROUND_FLOOR) {
+            System.out.format("Already on the ground floor; cannot go down%n");
+            return;
+        }
         System.out.format("Moving from %d to %d%n", this.currentFloor, --this.currentFloor);
     }
 

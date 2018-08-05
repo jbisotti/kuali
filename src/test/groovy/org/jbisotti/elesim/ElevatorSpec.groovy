@@ -41,11 +41,25 @@ class ElevatorSpec extends Specification {
       final Elevator elevator = new Elevator(topFloor)
 
       when:
+      elevator.moveUp()
       elevator.moveDown()
 
       then:
-      final int expectedCurrentFloor = 0
-      expectedCurrentFloor == elevator.currentFloor
+      Elevator.GROUND_FLOOR == elevator.currentFloor
+  }
+
+  def "Given the elevator is on the ground floor, moveDown() should not decrement its currentFloor"() {
+      given:
+      final int topFloor = 10
+
+      and:
+      final Elevator elevator = new Elevator(topFloor)
+
+      when:
+      elevator.moveDown()
+
+      then:
+      Elevator.GROUND_FLOOR == elevator.currentFloor
   }
 
   def "Given a valid elevator, openDoors() will set the doorState to OPEN"() {
