@@ -7,13 +7,19 @@ public class Elevator {
 
     private int currentFloor;
     private DoorsState doorsState;
+    private int topFloor;
 
-    public Elevator() {
+    public Elevator(final int topFloor) {
         this.currentFloor = 1;
         this.doorsState = DoorsState.OPEN;
+        this.topFloor = topFloor;
     }
 
     public void moveUp() {
+        if (this.currentFloor == this.topFloor) {
+            System.out.format("Already on the top floor; cannot go up%n");
+            return;
+        }
         System.out.format("Moving from %d to %d%n", this.currentFloor, ++this.currentFloor);
     }
 
