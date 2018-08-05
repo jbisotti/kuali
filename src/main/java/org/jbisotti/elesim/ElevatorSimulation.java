@@ -12,10 +12,10 @@ public class ElevatorSimulation {
 
     public ElevatorSimulation(final int numberOfElevators, final int numberOfFloors) {
 
-        checkArgument(numberOfElevators > 1, "There must be at least 1 elevator");
+        checkArgument(numberOfElevators > 0, "There must be at least 1 elevator");
         this.numberOfElevators = numberOfElevators;
 
-        checkArgument(numberOfFloors > 1, "There must be at least 1 floor");
+        checkArgument(numberOfFloors > 0, "There must be at least 1 floor");
         this.numberOfFloors = numberOfFloors;
     }
 

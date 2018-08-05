@@ -10,6 +10,9 @@ targetCompatibility = 1.8
 
 dependencies {
     compile group: 'com.google.guava', name: 'guava', version: '11.0.2'
+
+    testCompile(group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.6')
+    testCompile(group: 'org.spockframework', name: 'spock-core', version: '1.0-groovy-2.4')
 }
 
 repositories {
