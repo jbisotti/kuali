@@ -13,6 +13,7 @@ public class Elevator {
     private int topFloor;
     private boolean occupied;
     private int tripCount;
+    private Direction direction;
 
     public Elevator(final int topFloor) {
         this.currentFloor = GROUND_FLOOR;
@@ -20,6 +21,7 @@ public class Elevator {
         this.topFloor = topFloor;
         this.occupied = false;
         this.tripCount = 0;
+        this.direction = Direction.STATIONARY;
     }
 
     public void moveUp() {
@@ -63,11 +65,13 @@ public class Elevator {
         this.occupied = true;
 
         goToTripStartFloor(trip.getStartFloor());
+        this.direction = Direction.STATIONARY;
 
         openDoors();
         closeDoors();
 
         goToTripDestinationFloor(trip.getDestinationFloor());
+        this.direction = Direction.STATIONARY;
 
         openDoors();
         this.occupied = false;
@@ -80,8 +84,10 @@ public class Elevator {
     private void goToTripStartFloor(final int startFloor) {
 
         if (this.currentFloor < startFloor) {
+            this.direction = Direction.UP;
             // Go up to startFloor
         } else if (this.currentFloor > startFloor) {
+            this.direction = Direction.DOWN;
             // Go down to startFloor
         }
     }
@@ -89,8 +95,10 @@ public class Elevator {
     private void goToTripDestinationFloor(final int destinationFloor) {
 
         if (this.currentFloor < destinationFloor) {
+            this.direction = Direction.UP;
             // Go up to destinationFloor
         } else if (this.currentFloor > destinationFloor) {
+            this.direction = Direction.DOWN;
             // Go down to destinationFloor
         }
     }
@@ -101,5 +109,9 @@ public class Elevator {
 
     public boolean isOutOfService() {
         return this.tripCount == OUT_OF_SERVICE_TRIP_COUNT;
+    }
+
+    public Direction getCurrentDirection() {
+        return this.direction;
     }
 }
