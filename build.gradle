@@ -1,0 +1,22 @@
+group = 'org.bisotti'
+version = 0.5
+
+apply plugin: 'groovy'
+apply plugin: "jacoco"
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+}
+
+repositories {
+    jcenter()
+}
+
+test {
+    reports {
+        junitXml.enabled = true
+    }
+}
