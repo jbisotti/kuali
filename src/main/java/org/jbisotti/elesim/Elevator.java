@@ -24,6 +24,10 @@ public class Elevator {
         this.direction = Direction.STATIONARY;
     }
 
+    public int getCurrentFloor() {
+        return this.currentFloor;
+    }
+
     public void moveUp() {
         if (this.currentFloor == this.topFloor) {
             System.out.format("Already on the top floor; cannot go up%n");
